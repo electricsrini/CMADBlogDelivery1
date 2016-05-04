@@ -1,0 +1,167 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.cmad.blog.model.User" table="USERS" schema="CMADBlog" >
+		<meta attribute="class-description">
+			This class contains User description
+		</meta>
+		<id name="userId" type="int">
+			<column name="USERID" />
+			<generator class="native" />
+		</id>
+		<property name="firstName" type="string">
+			<column name="FNAME" length="100" />
+		</property>
+		<property name="lastName" type="string">
+			<column name="LNAME" length="100" />
+		</property>
+		<property name="emailId" type="string">
+			<column name="EMAIL_ID" length="100" />
+		</property>
+		<property name="password" type="string">
+			<column name="PASSWORD" length="100" />
+		</property>
+		<property name="joinDate" type="timestamp">
+			<column name="JOIN_DATE" length="29" />
+		</property>
+		<property name="age" type="int">
+			<column name="AGE" />
+		</property>
+		<property name="country" type="string">
+			<column name="COUNTRY" length="25" />
+		</property>
+		<property name="state" type="string">
+			<column name="STATE" length="25" />
+		</property>
+		<property name="city" type="string">
+			<column name="CITY" length="25" />
+		</property>
+		
+		<set name="blogs" inverse="true" cascade="save-update" lazy="false">
+			<key column="USERID"/>
+			<one-to-many class="com.cmad.blog.model.Blog"/>
+		</set>
+		
+		<set name="comments" inverse="true" cascade="save-update" lazy="false">
+			<key column="USERID"/>
+			<one-to-many class="com.cmad.blog.model.Comment"/>
+		</set>
+		
+	</class>
+	
+	<class name="com.cmad.blog.model.Blog" table="BLOGS" schema="CMADBlog" >
+		<meta attribute="class-description">
+			This class contains Blog description
+		</meta>
+		<id name="blogId" type="int">
+			<column name="BLOGID" />
+			<generator class="native" />
+		</id>
+		
+		<property name="title" type="string">
+			<column name="TITLE" length="200" />
+		</property>
+		
+		<property name="content" type="string">
+			<column name="CONTENT" length="2000" />
+		</property>
+		
+		<property name="entryDate" type="timestamp">
+			<column name="ENTRY_DATE" length="29" />
+		</property>
+		
+		<property name="rank" type="int">
+			<column name="RANK" />
+		</property>
+		
+		<set name="comments" inverse="true" cascade="save-update" lazy="false">
+			<key column="BLOGID"/>
+			<one-to-many class="com.cmad.blog.model.Comment"/>
+		</set>
+		
+		<set name="tags" inverse="true" cascade="save-update" lazy="false">
+			<key column="BLOGID"/>
+			<one-to-many class="com.cmad.blog.model.Tag"/>
+		</set>
+		
+		
+	</class>
+	
+	<class name="com.cmad.blog.model.Comment" table="COMMENTS" schema="CMADBlog" lazy="true">
+		
+		<meta attribute="class-description">
+			This class contains Comments description
+		</meta>
+		
+		<id name="commentId" type="int">
+			<column name="COMMENTID" />
+			<generator class="native" />
+		</id>
+		
+		<property name="entryDate" type="timestamp">
+			<column name="ENTRY_DATE" length="29" />
+		</property>
+		<property name="content" type="string">
+			<column name="CONTENT" length="2000" />
+		</property>
+		<property name="parentId" type="int">
+			<column name="PARENTID" />
+		</property>
+		<property name="rank" type="int">
+			<column name="RANK" />
+		</property>
+		
+	</class>
+	
+	<class name="com.cmad.blog.model.TagList" table="TAGLIST" schema="CMADBlog" lazy="true">
+		
+		<meta attribute="class-description">
+			This class contains Tag ID and its String description
+		</meta>
+		
+		<id name="tagId" type="int">
+			<column name="TAGID" />
+			<generator class="native" />
+		</id>
+		
+		<property name="tagString" type="string">
+			<column name="TAGSTRING" length="200" />
+		</property>	
+		
+		<set name="tags" inverse="true" cascade="save-update" lazy="false">
+			<key column="TAGID"/>
+			<one-to-many class="com.cmad.blog.model.Tag"/>
+		</set>
+		
+		
+	</class>
+	
+	<class name="com.cmad.blog.model.Tag" table="TAG" schema="CMADBlog" lazy="true">
+		
+		<meta attribute="class-description">
+			This class contains Tag Id and Blog Id description
+		</meta>
+		
+		<!-- <id name="Id" type="int">
+			<column name="ID" />
+			<generator class="native" />
+		</id>  -->
+		
+		<!-- <property name="keyId" type="int">
+			<column name="keyId" /> 
+		</property>  -->
+		
+		<!-- <property name="blogId" type="int">
+			<column name="BLOGID" /> 
+		</property>  -->
+		
+		<composite-id>
+			<key-property name="tagId"/>
+			<key-property name="blogId"/>
+		</composite-id>
+	
+	</class>
+
+	
+</hibernate-mapping>

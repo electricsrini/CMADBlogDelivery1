@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                                         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<!-- Database Connection Settings -->
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="hibernate.connection.url">jdbc:mysql://localhost/cmadblog</property>
+		<property name="hibernate.connection.username">blogadmin</property>
+		<property name="hibernate.connection.password">c#@dT6ai^1^g</property>
+
+		<!-- <property name="hibernate.multiTenancy">DATABASE</property> <property 
+			name="hibernate.multi_tenant_connection_provider">com.mydomain.biz.TenantBasedConnectionProvider</property> -->
+		
+		<property name="hibernate.connection.isolation">4</property>
+		
+		
+		<!-- Database Connection Pool Size -->
+		<property name="connection_pool_size">true</property>
+		
+		<!-- SQL Dialect -->
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+		
+		<!-- Disable the second level cache -->
+		<property name="cache.providerclass">org.hibernate.NoCacheProvider</property>
+		
+		<!-- Echo all executed SQL to stdout -->
+		<property name="show_sql">true</property>
+		
+		<!-- Drop and re-create the database schema on startup -->
+		<property name="hibernate.hbm2ddl.auto">update</property>
+		
+		<mapping resource="com/cmad/model/associations.hbm.xml" />
+		
+	</session-factory>
+</hibernate-configuration>
