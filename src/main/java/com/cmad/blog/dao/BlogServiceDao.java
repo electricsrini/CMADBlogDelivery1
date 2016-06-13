@@ -7,10 +7,14 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.cmad.blog.model.*;
 
 public class BlogServiceDao {
+	
+	final Logger log = LoggerFactory.getLogger(com.cmad.blog.dao.UserServiceDao.class);
 	
 	private TagDao tagDao;
 	public BlogServiceDao(){
@@ -99,7 +103,7 @@ public class BlogServiceDao {
 	}
 	
 	public Integer createBlog (Blog b) {
-		System.out.println("Creating blog with title : "+b.getTitle()+" on "+b.getEntryDate());
+		log.debug("Creating blog with title : "+b.getTitle()+" on "+b.getEntryDate());
 		int id=0;
 		Session ses = HibernateUtil.currentSession();
 		try {

@@ -11,12 +11,20 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.cmad.blog.model.Blog;
 import com.cmad.blog.model.User;
 
 
 public class UserServiceDao {
+	
+	final Logger log = LoggerFactory.getLogger(com.cmad.blog.dao.UserServiceDao.class);
+	
+	public UserServiceDao(){
+		
+	}
 	
 	/**
 	 * Get User details based on the user ID that is passed a parameter
@@ -126,7 +134,7 @@ public class UserServiceDao {
 	public Integer createUser (User u) {
 		
 		int id=0;
-		System.out.println("Creating user: "+u.getFirstName()+" "+u.getLastName()+" from "+u.getCity()+", "+u.getState()+", "+u.getCountry()+" with EmailID :"+u.getEmailId()+" and Age: "+u.getAge());
+		log.debug("Creating user for : " + u.getUserName());
 		Session ses = HibernateUtil.currentSession();
 		try {
 			Transaction tx = ses.beginTransaction();
@@ -137,6 +145,19 @@ public class UserServiceDao {
 			HibernateUtil.closeSession();
 		}
 		return id;
+	}
+	
+	public Boolean validateUser (String uname, String pwd){
+		log.debug("Validate user authentication for : "+uname);
+		Session ses = HibernateUtil.currentSession();
+		try {
+			Criteria crit = ses.createCriteria(User.class);
+			crit.add(Restrictions.eq(uname, uname.toLowerCase()));
+			User u = (User)crit.uniqueResult();
+			return (pwd==u.getPassword());
+		} finally {
+			HibernateUtil.closeSession();
+		}
 	}
 
 }

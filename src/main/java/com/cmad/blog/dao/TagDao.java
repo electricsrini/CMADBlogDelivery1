@@ -6,11 +6,14 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
 
 import com.cmad.blog.model.Tag;
 import com.cmad.blog.model.TagList;
 
 public class TagDao {
+	
+	private Logger log;
 
 	/**
 	 * Get the keyword object for the keyId provided.
@@ -99,7 +102,7 @@ public class TagDao {
 	
 	public Integer createKeyword (TagList s) {
 		int id = 0;
-		System.out.println("Creating keyword entry: "+s.getTagString());
+		log.debug("Creating keyword entry: "+s.getTagString());
 		Session ses = HibernateUtil.currentSession();
 		if (getKeyId(s.getTagString()) == null){
 			try {
@@ -119,7 +122,7 @@ public class TagDao {
 	
 	public Integer createKeyword (Tag k) {
 		int id = 0;
-		System.out.println("Creating keyword entry: "+k.getTagId()+" and it is associated to "+k.getBlogId());
+		log.debug("Creating keyword entry: "+k.getTagId()+" and it is associated to "+k.getBlogId());
 		Session ses = HibernateUtil.currentSession();
 		try {
 			Transaction tx = ses.beginTransaction();

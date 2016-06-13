@@ -16,6 +16,9 @@
 		<property name="lastName" type="string">
 			<column name="LNAME" length="100" />
 		</property>
+		<property name="userName" type="string">
+			<column name="UNAME" length="100" not-null="true" unique="true" />
+		</property>
 		<property name="emailId" type="string">
 			<column name="EMAIL_ID" length="100" />
 		</property>
@@ -30,12 +33,6 @@
 		</property>
 		<property name="country" type="string">
 			<column name="COUNTRY" length="25" />
-		</property>
-		<property name="state" type="string">
-			<column name="STATE" length="25" />
-		</property>
-		<property name="city" type="string">
-			<column name="CITY" length="25" />
 		</property>
 		
 		<set name="blogs" inverse="true" cascade="save-update" lazy="false">

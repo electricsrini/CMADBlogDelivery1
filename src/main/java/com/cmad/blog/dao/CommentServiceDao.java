@@ -6,11 +6,14 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
 
 import com.cmad.blog.model.Comment;
 import com.cmad.blog.model.User;
 
 public class CommentServiceDao {
+	
+	private Logger log;
 	
 	public Comment getCommentDao (Integer commentId){
 		Session ses = HibernateUtil.currentSession();
@@ -34,7 +37,7 @@ public class CommentServiceDao {
 	}
 	
 	public void createComment (Comment c) {
-		System.out.println("Creating comment: "+c.getContent()+ " entered on "+c.getEntryDate());
+		log.debug("Creating comment: "+c.getContent()+ " entered on "+c.getEntryDate());
 		Session ses = HibernateUtil.currentSession();
 		try {
 			Transaction tx = ses.beginTransaction();

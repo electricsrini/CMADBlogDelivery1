@@ -9,13 +9,12 @@ public class User {
 	private Integer userId;
 	private String firstName;
 	private String lastName;
+	private String userName;
 	private String emailId;
 	private String password;
 	private Date joinDate=new Date();
 	private Integer age;
 	private String country;
-	private String state;
-	private String city;
 	
 	private Set<Blog> blogs;
 	private Set<Comment> comments;
@@ -36,6 +35,12 @@ public class User {
 	}
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 	public String getEmailId() {
 		return emailId;
@@ -67,18 +72,6 @@ public class User {
 	public void setCountry(String country) {
 		this.country = country;
 	}
-	public String getState() {
-		return state;
-	}
-	public void setState(String state) {
-		this.state = state;
-	}
-	public String getCity() {
-		return city;
-	}
-	public void setCity(String city) {
-		this.city = city;
-	}
 	public Set<Blog> getBlogs() {
 		return blogs;
 	}
@@ -93,10 +86,12 @@ public class User {
 	}
 	@Override
 	public String toString() {
-		return "User [userId=" + userId + ", firstName=" + firstName + ", lastName=" + lastName + ", emailId=" + emailId
-				+ ", password=" + password + ", joinDate=" + joinDate + ", age=" + age + ", country=" + country
-				+ ", state=" + state + ", city=" + city + ", blogs=" + blogs + ", comments=" + comments + "]";
+		return "User [userId=" + userId + ", firstName=" + firstName + ", lastName=" + lastName + ", userName="
+				+ userName + ", emailId=" + emailId + ", password=" + password + ", joinDate=" + joinDate + ", age="
+				+ age + ", country=" + country + ", blogs=" + blogs + ", comments=" + comments + "]";
 	}
+	
+	
 	
 	
 

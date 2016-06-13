@@ -1,5 +1,13 @@
 package com.cmad.blog.services;
 
+/** To Do
+ * 1. User credentials validation boolean check
+ * 2. Validation before POST that the username does not exist already
+ * 3. UI validation check for existing username
+ * 4. Validation for required parameters in POST request
+ * 5. UI validation check for required parameters
+ * 6. UI Signup Password and Password re-enter check
+ */
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -104,16 +112,30 @@ public class UserService {
 	/**
 	 * Post / create a new user. The user Id is auto-generated and so in join date. Parameters even if provided will be ignored / overriddgen.
 	 *  
-	 * @param u
+	 * @param user object
 	 * @return userId of the entry that is created.
 	 */
 	
 	@POST
 	@Consumes({MediaType.APPLICATION_JSON})
 	public Integer createUser (User u) {
-		int id = 0;
-		userDao.createUser(u);
-		return id;
+		return userDao.createUser(u);
+	}
+	
+	/**
+	 * Post operation to check valid user 
+	 *   
+	 * @param username and password of the user to be validated
+	 * @return Boolean response of success / failure (true/false)
+	 * @throws IllegalAccessException in case the username or the password is <code>Null</code>
+	 */
+	
+	@POST
+	@Path("/login")
+	@Consumes({MediaType.APPLICATION_JSON})
+	public Boolean validUser (@PathParam("param") String userName, String passwd) {
+		if (userName == null || passwd == null) throw new IllegalArgumentException("Invalid user name passed, expected value, actual null");
+		return userDao.validateUser(userName, passwd);
 	}
 
 

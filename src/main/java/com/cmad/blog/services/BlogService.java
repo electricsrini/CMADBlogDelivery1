@@ -10,6 +10,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.slf4j.Logger;
+
 import com.cmad.blog.dao.*;
 import com.cmad.blog.model.Blog;
 
@@ -17,6 +19,7 @@ import com.cmad.blog.model.Blog;
 @Path("/blog")
 public class BlogService {
 	
+	private Logger log;
 	private BlogServiceDao blogDao;
 	private UserServiceDao userDao;
 	
@@ -100,7 +103,7 @@ public class BlogService {
 	public Integer createBlog (Blog b) {
 		int id = 0;
 		
-		System.out.println("createBlog :: blog :" + b);
+		log.debug("createBlog :: blog :" + b);
 		id = blogDao.createBlog(b);
 		
 		return id;
